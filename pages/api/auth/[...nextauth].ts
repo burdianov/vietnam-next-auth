@@ -27,5 +27,12 @@ export default NextAuth({
   },
   session: {
     jwt: true
+  },
+  callbacks: {
+    session: async ({ session, token }) => {
+      session.userId = token.sub;
+
+      return Promise.resolve(session);
+    }
   }
 });
