@@ -1,0 +1,8 @@
+# TODO
+resolve the case when different auth providers have same email
+
+$ npx prisma init
+
+$ npx prisma migrate dev --name name_of_first_migration
+
+$ npx prisma studio

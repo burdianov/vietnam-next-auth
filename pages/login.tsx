@@ -2,6 +2,7 @@ import { FC, useEffect } from 'react';
 import type { BuiltInProviderType } from 'next-auth/providers';
 import {
   LiteralUnion,
+  getCsrfToken,
   ClientSafeProvider,
   getProviders,
   getSession,
@@ -18,9 +19,14 @@ interface LoginProps {
     ClientSafeProvider
   >;
   session: Session;
+  csrfToken?: string;
 }
 
-const Login: FC<LoginProps> = ({ providers, session }: LoginProps) => {
+const Login: FC<LoginProps> = ({
+  providers,
+  session,
+  csrfToken
+}: LoginProps) => {
   useEffect(() => {
     if (session) {
       Router.push('/');
@@ -49,7 +55,7 @@ const Login: FC<LoginProps> = ({ providers, session }: LoginProps) => {
 
         <p className="text-center">Login with NextAuth</p>
 
-        <OAuth providers={providers} />
+        <OAuth providers={providers} csrfToken={csrfToken} />
       </div>
     </div>
   );
@@ -63,7 +69,8 @@ export async function getServerSideProps(
   return {
     props: {
       providers: await getProviders(),
-      session: await getSession(context)
+      session: await getSession(context),
+      csrfToken: await getCsrfToken(context)
     }
   };
 }

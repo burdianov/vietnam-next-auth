@@ -8,14 +8,27 @@ interface OAuthProps {
     LiteralUnion<BuiltInProviderType, string>,
     ClientSafeProvider
   >;
+  csrfToken?: string;
 }
 
-const OAuth = ({ providers }: OAuthProps) => {
+const OAuth = ({ providers, csrfToken }: OAuthProps) => {
   return (
     <>
-      <BtnLogin provider={providers.google} bgColor="#f2573f" />
-      <BtnLogin provider={providers.facebook} bgColor="#0404be" />
-      <BtnLogin provider={providers.github} bgColor="#444" />
+      <BtnLogin
+        provider={providers.google}
+        bgColor="#f2573f"
+        csrfToken={csrfToken}
+      />
+      <BtnLogin
+        provider={providers.facebook}
+        bgColor="#0404be"
+        csrfToken={csrfToken}
+      />
+      <BtnLogin
+        provider={providers.github}
+        bgColor="#444"
+        csrfToken={csrfToken}
+      />
     </>
   );
 };
